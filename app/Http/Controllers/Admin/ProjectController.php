@@ -42,9 +42,15 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Project $project)
+    public function show(string $id)
     {
-        //
+        $project = Project::find($id);
+        
+        $data = [
+            "project" => $project
+        ];
+
+        return view("admin.show",$data);
     }
 
     /**

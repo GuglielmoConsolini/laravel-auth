@@ -37,10 +37,14 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
+
+        $data = $request->validate([
+            "name" => "required",
+            "description" => "required",
+        ]);
            // Crea un nuovo progetto con i dati dal form
         $project = new Project();
-        $project->name = $request->input('name');
-        $project->description = $request->input('description');
+        $project->fill( $data );
 
         // Salva il progetto nel database
         $project->save();
@@ -95,6 +99,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+        return redirect()->route('admin.projects.index');
     }
 }

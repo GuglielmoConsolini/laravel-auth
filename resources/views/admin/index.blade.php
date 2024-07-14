@@ -14,6 +14,12 @@
                         <p class="card-text"><small class="text-muted">Updated at: {{ $progetto->updated_at }}</small></p>
                         <a href="{{ route('admin.projects.edit', $progetto->id) }}" class="btn btn-warning">Modifica</a>
                         <a href="{{ route('admin.projects.show', $progetto->id) }}" class="btn btn-primary">Dettaglio</a>
+                        <form action="{{ route('admin.projects.destroy' , $progetto->id)}}" method="POST">
+                            @csrf
+                            @method("DELETE")
+                            <button type="submit" class="btn btn-danger">Elimina</button>
+                        </form>
+                
                     </div>
                 </div>
             </div>

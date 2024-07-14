@@ -46,15 +46,14 @@ class ProjectController extends Controller
         $project->save();
 
         // Reindirizza l'utente alla vista del progetto appena creato
-        return redirect()->route('admin.projects.show', ['project' => $project->id]);
+        return redirect()->route('admin.projects.show', $project);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Project $project)
     {
-        $project = Project::find($id);
         
         $data = [
             "project" => $project
@@ -68,7 +67,11 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        $data = [
+            "project" => $project
+        ];
+
+        return view("admin.edit" , $data);
     }
 
     /**
@@ -76,7 +79,15 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+         // Aggiorna il progetto con i dati dal form
+         $project->name = $request->input('name');
+         $project->description = $request->input('description');
+ 
+         // Salva le modifiche nel database
+         $project->save();
+ 
+         // Reindirizza l'utente alla vista del progetto aggiornato
+         return redirect()->route('admin.projects.show', $project);
     }
 
     /**

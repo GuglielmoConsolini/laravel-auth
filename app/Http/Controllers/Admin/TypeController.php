@@ -48,7 +48,7 @@ class TypeController extends Controller
             "tipi" => $type
         ];
 
-        return view("admin.types.show" , $data);
+        return view("types.show" , $data);
     }
 
     /**

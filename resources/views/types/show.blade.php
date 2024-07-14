@@ -1,8 +1,13 @@
 @extends("layouts.app")
 
 @section("content")
-<h2>{{ $project->name }}</h2>
-<p>{{ $project->description }}</p>
-<p>{{ $project->created_at }}</p>
+
+{{ dd($tipi) }}
+
+<h2>{{ $tipi->nome }}</h2>
+<p>{{ $tipi->description }}</p>
+<i class="{{$tipi->icon}}"></i>
+<p>Type: {{$tipi->type_id}}</p>
+
 
 @endsection

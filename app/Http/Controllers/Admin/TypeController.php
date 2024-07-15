@@ -28,7 +28,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('types.create');
     }
 
     /**
@@ -36,7 +36,15 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nome' => 'required',
+            'description' => 'required',
+            'icon' => 'required',
+        ]);
+    
+        $type = Type::create($validatedData);
+    
+        return redirect()->route('admin.types.index');
     }
 
     /**
@@ -46,7 +54,7 @@ class TypeController extends Controller
     {   
 
         $type->load('projects');
-        
+
         $data = [
             "tipi" => $type
         ];
@@ -59,7 +67,7 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
-        //
+        return view('types.edit', compact('type'));
     }
 
     /**
@@ -67,7 +75,15 @@ class TypeController extends Controller
      */
     public function update(Request $request, Type $type)
     {
-        //
+        $validatedData = $request->validate([
+            'nome' => 'required',
+            'description' => 'required',
+            'icon' => 'required',
+        ]);
+    
+        $type->update($validatedData);
+    
+        return redirect()->route('admin.types.show', $type);
     }
 
     /**

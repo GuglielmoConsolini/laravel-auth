@@ -22,7 +22,7 @@ class TypeSeeder extends Seeder
         $tipoBack = new Type();
         $tipoBack-> nome = "Back-end";
         $tipoBack-> description = "Progetto incentrato sul Back office dell'applicazione";
-        $tipoBack-> icon ="fa-brand fa-php";
+        $tipoBack-> icon ="fa-brands fa-docker";
         $tipoBack->save();
 
         $tipoFull = new Type();

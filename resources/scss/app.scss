@@ -1,3 +1,73 @@
 @import '~bootstrap/scss/bootstrap';
 
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+}
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.card-header {
+    background-color: #007bff;
+    color: white;
+}
+.card-footer {
+    background-color: #f8f9fa;
+}
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+.btn-gradient {
+    background: linear-gradient(to right, #f3c453, #56d761);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 10px; /* Aggiungi margine sinistro per separare dal pulsante 'Torna alla lista progetti' */
+    transition: background 0.3s ease;
+}
+.btn-gradient:hover {
+    background: linear-gradient(to right, #e2b849, #4ecf4e);
+}
+.btn-second-gradient {
+    background: linear-gradient(to right, #ff8a00, #e52e71);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
 
+.btn-second-gradient:hover {
+    background: linear-gradient(to right, #e52e71, #ff8a00);
+}
+
+.btn-cyberpunk {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff4d6b; /* Colore principale */
+    border: 2px solid #ffc300; /* Colore del bordo */
+    color: #fff; /* Colore del testo */
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-cyberpunk:hover {
+    background-color: #ffc300;
+    border-color: #ff4d6b;
+    color: #000;
+}

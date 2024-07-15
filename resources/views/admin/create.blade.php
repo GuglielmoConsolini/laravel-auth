@@ -24,6 +24,14 @@
             <label for="description" class="form-label">Descrizione</label>
             <textarea class="form-control" id="description" name="description" rows="4" required>{{ old('description') }}</textarea>
         </div>
+        <div class="mb-3">
+            <label for="type_id" class="form-label">Tipo</label>
+            <select class="form-control" id="type_id" name="type_id" required>
+                @foreach($types as $type)
+                    <option value="{{ $type->id }}">{{ $type->nome }}</option>
+                @endforeach
+            </select>
+        </div>
         <button type="submit" class="btn btn-primary">Crea +</button>
     </form>
     

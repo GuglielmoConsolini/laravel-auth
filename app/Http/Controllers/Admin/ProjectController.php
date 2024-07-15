@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use App\Models\Type;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
@@ -29,7 +29,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.create');
+        $types = Type::all();
+        return view('admin.create', compact('types'));
     }
 
     /**
@@ -41,6 +42,7 @@ class ProjectController extends Controller
         $data = $request->validate([
             "name" => "required",
             "description" => "required",
+            "type_id" => "required|exists:types,id",
         ]);
            // Crea un nuovo progetto con i dati dal form
         $project = new Project();

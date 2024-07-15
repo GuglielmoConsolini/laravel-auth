@@ -12,6 +12,13 @@ class Project extends Model
     protected $fillable = [
         'name',
         'description',
+        'type_id',
     ];
+
+    //Tutti i Project avranno un metodo che restituisce la categoria a cui appartengono
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
 
 }

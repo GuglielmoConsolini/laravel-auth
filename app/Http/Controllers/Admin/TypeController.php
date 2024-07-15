@@ -11,7 +11,7 @@ class TypeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Type $types)
+    public function index()
     {
 
         $types = Type::all();
@@ -43,7 +43,10 @@ class TypeController extends Controller
      * Display the specified resource.
      */
     public function show(Type $type)
-    {
+    {   
+
+        $type->load('projects');
+        
         $data = [
             "tipi" => $type
         ];

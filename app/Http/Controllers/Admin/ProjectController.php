@@ -98,17 +98,35 @@ class ProjectController extends Controller
      * Update the specified resource in storage.
      */
     public function update(UpdateProjectRequest $request, Project $project)
-    {
-         // Aggiorna il progetto con i dati dal form
-         $project->name = $request->input('name');
-         $project->description = $request->input('description');
- 
-         // Salva le modifiche nel database
-         $project->save();
- 
-         // Reindirizza l'utente alla vista del progetto aggiornato
-         return redirect()->route('admin.projects.show', $project);
+{
+    // Validazione dei dati, inclusa la cover_image
+    $data = $request->validate([
+        "name" => "required",
+        "description" => "required",
+        "cover_image" => "nullable|image|max:2048",
+        
+    ]);
+
+    // Verifica se è stata caricata un'immagine
+    if ($request->hasFile('cover_image')) {
+        // Salva l'immagine nella directory 'uploads' e ottieni il percorso
+        $image_path = Storage::put('uploads', $request->file('cover_image'));
+        // Aggiungi il percorso dell'immagine ai dati da salvare
+        $data['cover_image'] = $image_path;
+
+        // Elimina l'immagine precedente se esiste
+        if ($project->cover_image && Storage::exists($project->cover_image)) {
+            Storage::delete($project->cover_image);
+        }
     }
+
+    // Aggiorna il progetto con i nuovi dati
+    $project->update($data);
+
+    // Reindirizza l'utente alla vista del progetto aggiornato
+    return redirect()->route('admin.projects.show', $project);
+}
+
 
     /**
      * Remove the specified resource from storage.

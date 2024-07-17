@@ -6,6 +6,8 @@ use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use illuminate\Http\Request;
 
 
@@ -42,8 +44,20 @@ class ProjectController extends Controller
         $data = $request->validate([
             "name" => "required",
             "description" => "required",
+            "cover_image" => "nullable|image|max:2048",
             "type_id" => "required|exists:types,id",
         ]);
+
+
+        // Verifica se è stata caricata un'immagine
+        if ($request->hasFile('cover_image')) {
+        // Salva l'immagine nella directory 'uploads' e ottieni il percorso
+           $image_path = Storage::put('uploads', $request->file('cover_image'));
+        // Aggiungi il percorso dell'immagine ai dati da salvare
+           $data['cover_image'] = $image_path;
+        }
+        
+
            // Crea un nuovo progetto con i dati dal form
         $project = new Project();
         $project->fill( $data );

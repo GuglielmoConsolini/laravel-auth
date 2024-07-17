@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.projects.store') }}" method="POST">
+    <form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="name" class="form-label">Nome progetto</label>
@@ -31,6 +31,14 @@
                     <option value="{{ $type->id }}">{{ $type->nome }}</option>
                 @endforeach
             </select>
+        </div>
+        <div class="mb-3">
+            <label for="cover_image" class="form-label">Choose file</label>
+            <input type="file" class="form-control" name="cover_image" id="cover_image" placeholder="" aria-describedby="coverImageHelper" />
+            <div id="coverImageHelper" class="form-text">Upload an image for the current project</div>
+            @error('cover_image')
+            <div class="form-text text-danger">{{ $message }}</div>
+            @enderror
         </div>
         <button type="submit" class="btn btn-primary">Crea +</button>
     </form>

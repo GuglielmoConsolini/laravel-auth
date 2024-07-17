@@ -7,6 +7,13 @@
             <h2>{{ $project->name }}</h2>
         </div>
         <div class="card-body">
+
+            @if (Str::startsWith($project->cover_image, 'http'))
+                        <img src="{{ $project->cover_image }}" class="card-img-top" alt="{{ $project->name }}">
+                    @else
+                        <img src="{{ asset('storage/' . $project->cover_image) }}" class="card-img-top" alt="{{ $project->name }}">
+            @endif
+
             <p class="card-text">{{ $project->description }}</p>
             <p class="text-muted">Creato il: {{ $project->created_at->format('d-m-Y H:i') }}</p>
             @if($project->type)

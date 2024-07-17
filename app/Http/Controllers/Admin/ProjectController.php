@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Models\Type;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Controllers\Controller;
@@ -18,12 +19,10 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $listaProgetti = Project::all();
-        $data = [
-            "progetti" => $listaProgetti
-        ];
+        $progetti = Project::with('type', 'technologies')->get();
 
-        return view("admin.index" , $data);
+        return view('admin.index', compact('progetti'));
+ 
     }
 
     /**
@@ -32,7 +31,8 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.create', compact('types'));
+        $technologies = Technology::all();
+        return view('admin.create', compact('types','technologies'));
     }
 
     /**
@@ -46,6 +46,7 @@ class ProjectController extends Controller
             "description" => "required",
             "cover_image" => "nullable|image|max:2048",
             "type_id" => "required|exists:types,id",
+            "technologies" => "array|exists:technologies,id", // Aggiungi la validazione per le tecnologie
         ]);
 
 
@@ -64,6 +65,10 @@ class ProjectController extends Controller
 
         // Salva il progetto nel database
         $project->save();
+
+        if ($request->has('technologies')) {
+            $project->technologies()->attach($request->technologies);
+        }
 
         // Reindirizza l'utente alla vista del progetto appena creato
         return redirect()->route('admin.projects.show', $project);
@@ -91,7 +96,9 @@ class ProjectController extends Controller
             "project" => $project
         ];
 
-        return view("admin.edit" , $data);
+        $technologies = Technology::all();
+
+        return view("admin.edit" , $data, compact('technologies'));
     }
 
     /**
@@ -104,6 +111,8 @@ class ProjectController extends Controller
         "name" => "required",
         "description" => "required",
         "cover_image" => "nullable|image|max:2048",
+        "technologies" => "array|exists:technologies,id", // Aggiungi la validazione per le tecnologie
+
         
     ]);
 
@@ -122,6 +131,12 @@ class ProjectController extends Controller
 
     // Aggiorna il progetto con i nuovi dati
     $project->update($data);
+
+    if ($request->has('technologies')) {
+        $project->technologies()->sync($request->technologies);
+    } else {
+        $project->technologies()->detach(); // Rimuove tutte le tecnologie se nessuna è selezionata
+    }
 
     // Reindirizza l'utente alla vista del progetto aggiornato
     return redirect()->route('admin.projects.show', $project);

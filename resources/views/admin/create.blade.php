@@ -40,6 +40,16 @@
             <div class="form-text text-danger">{{ $message }}</div>
             @enderror
         </div>
+        <div class="mb-3">
+            <label for="technologies" class="form-label">Technologie</label>
+            <select class="form-control" id="technologies" name="technologies[]" multiple>
+                @foreach($technologies as $technology)
+                    <option value="{{ $technology->id }}" @if(in_array($technology->id, old('technologies', []))) selected @endif>
+                        {{ $technology->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
         <button type="submit" class="btn btn-primary">Crea +</button>
     </form>
     

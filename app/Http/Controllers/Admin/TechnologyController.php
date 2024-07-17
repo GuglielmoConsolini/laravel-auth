@@ -43,7 +43,13 @@ class TechnologyController extends Controller
      */
     public function show(Technology $technology)
     {
-        //
+        // $technologies->load('projects');
+
+        $data = [
+            "tecnologie" => $technology
+        ];
+
+        return view("admin.technologies.show" , $data);
     }
 
     /**

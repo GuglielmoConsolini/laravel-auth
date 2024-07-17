@@ -2,16 +2,6 @@
 
 @section('content')
 <div class="container night-mode">
-    {{-- <div class="card">
-        <div class="card-body">
-            <h2 class="card-title">{{ $tipi->nome }}</h2>
-            <p class="card-text">{{ $tipi->description }}</p>
-            <i class="{{ $tipi->icon }}"></i>
-            <div class="mt-4">
-                <a href="{{ route('admin.types.index', $tipi) }}" class="btn btn-second-gradient">Torna ai Type</a>
-            </div>
-        </div>
-    </div> --}}
     <div class="Type-card">
         <p class="heading">
             {{ $tipi->nome }}

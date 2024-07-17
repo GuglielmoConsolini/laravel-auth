@@ -58,6 +58,12 @@
                             </li>
 
                             <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ route('admin.technologies.index') }}">
+                                    <i class="fa-solid fa-wrench"></i> Technologies
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
                                 <a class="nav-link text-white" href="{{ route('admin.projects.create') }}">
                                     <i class="fa-solid fa-plus-circle fa-lg fa-fw"></i> New Project
                                 </a>

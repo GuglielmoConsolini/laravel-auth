@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\Admin\ProjectController; 
 use App\Http\Controllers\Admin\TypeController;
+use App\Http\Controllers\Admin\TechnologyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController; //<---- Import del controller precedentemente creato!
 
@@ -33,6 +34,7 @@ Route::middleware(['auth'])
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::resource('projects',ProjectController::class);
         Route::resource('types',TypeController::class);
+        Route::resource('technologies',TechnologyController::class);
     });
 
 require __DIR__ . '/auth.php';

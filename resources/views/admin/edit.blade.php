@@ -43,6 +43,17 @@
                 @endforeach
             </select>
         </div>
+        <div class="mb-3">
+            <label for="type_id" class="form-label">Tipo</label>
+            <select class="form-control" id="type_id" name="type_id" required>
+                <option value="">Seleziona il tipo</option>
+                @foreach($types as $type)
+                    <option value="{{ $type->id }}" @if(old('type_id', $project->type_id) == $type->id) selected @endif>
+                        {{ $type->nome }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
         <button type="submit" class="btn btn-primary">Aggiorna</button>
     </form>
     

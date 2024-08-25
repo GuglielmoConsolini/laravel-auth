@@ -91,15 +91,19 @@ class ProjectController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Project $project)
-    {
-        $data = [
-            "project" => $project
-        ];
+{
+    // Recupera tutte le tecnologie e i tipi
+    $technologies = Technology::all();
+    $types = Type::all();
 
-        $technologies = Technology::all();
+    // Passa i dati alla vista come un array associativo
+    return view('admin.edit', [
+        'project' => $project,
+        'technologies' => $technologies,
+        'types' => $types
+    ]);
+}
 
-        return view("admin.edit" , $data, compact('technologies'));
-    }
 
     /**
      * Update the specified resource in storage.
@@ -112,6 +116,7 @@ class ProjectController extends Controller
         "description" => "required",
         "cover_image" => "nullable|image|max:2048",
         "technologies" => "array|exists:technologies,id", // Aggiungi la validazione per le tecnologie
+        'type_id' => 'required|exists:types,id',
 
         
     ]);
